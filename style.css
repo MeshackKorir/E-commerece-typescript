@@ -91,4 +91,30 @@
     margin-left: 30PX;
 }
 
+.body button:hover{
+    color: rgb(90, 66, 200);
+    cursor: pointer;
+}
+
+#two-forms{
+    display: flex;
+    align-items: flex-start;
+    gap: 175px;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
 

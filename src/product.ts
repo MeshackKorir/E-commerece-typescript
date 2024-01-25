@@ -1,24 +1,31 @@
-const navbar = document.querySelector('.navbar') as HTMLDivElement;
+// let buttOnonClick = document.querySelector('#buttononclick') as HTMLButtonElement;
 
-interface Product{
+// buttOnonClick.addEventListener("click", (() =>{
+
+// }))
+
+// let body = document.querySelector('.body') as HTMLFormElement;
+
+
+interface Book{
     id: number;
-    url: string;
-
+    image: string;
+    name: string;
+    author: string;
+    title: string;
+    date_established: number
 }
 
+// Initializing an empty array
+let Books: Book[]=[]
 
 
 
 
-// local storage feature
 
-// const getLocalStorageItem => (key) {
-//     return JSON.parse(window.localStorage.getItem(key))
-//   }
-  
-//   const setLocalStorageItem => (key, value) {
-//     window.localStorage.setItem(key, JSON.stringify(value));
-//   }
+
+
+
 
 
 
