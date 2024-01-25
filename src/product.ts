@@ -1,4 +1,4 @@
-// let id = document.querySelector('#name') as HTMLInputElement
+let id = document.querySelector('#name') as HTMLInputElement
 let body = document.querySelector(".body") as HTMLFormElement
 let image = document.querySelector('#profile') as HTMLInputElement
 let names = document.querySelector('#name') as HTMLInputElement
@@ -61,6 +61,8 @@ body.addEventListener("submit", (e)=>{
         date_established.value = ""
     }
 })
+
+
 
 
 

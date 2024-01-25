@@ -1,5 +1,5 @@
 "use strict";
-// let id = document.querySelector('#name') as HTMLInputElement
+let id = document.querySelector('#name');
 let body = document.querySelector(".body");
 let image = document.querySelector('#profile');
 let names = document.querySelector('#name');

@@ -55,8 +55,8 @@
     width: 30vw;
     margin-top: 20px;
     padding: 19px;
-    background-color: rgb(164, 181, 148);
-    box-shadow: rgb(61, 60, 60);
+    background-color: cadetblue;
+    box-shadow: rgb(221, 169, 169);
     border-radius: 15PX;
 }
 
@@ -64,14 +64,23 @@
     display: flex;
     padding: 10px;
     margin-left: 30px;
+    justify-content: center;
+    align-items: center;
+    background-color: cadetblue;
+    border-radius: 4px;
+    color: rgb(28, 95, 220);
+    margin-bottom: 5px;
 }
 
 #area{
+    background-image: url('https://24slides.com/templates/assets/templates-previews/8W3JfzOpJiNZBnDYXHpQ3TGSMiZSG782uNXuAsrA.jpg');
     justify-content: center;
     align-items: center;
     padding: 53.5px;
-    background-color: cadetblue;
+    background-color: rgb(24, 232, 239);
     height: 100%;
+    font-family: 'Arial', sans-serif;
+
 }
 
 #profile-image img {
@@ -92,7 +101,7 @@
 }
 
 .body button:hover{
-    color: rgb(90, 66, 200);
+    color: rgb(27, 161, 209);
     cursor: pointer;
 }
 
@@ -108,7 +117,7 @@ table {
   }
   
   td, th {
-    border: 1px solid #dddddd;
+    border: 1px solid #5404d4;
     text-align: left;
     padding: 8px;
   }
