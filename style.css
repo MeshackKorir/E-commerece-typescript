@@ -1,3 +1,5 @@
+/* @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'); */
+
 *{
     margin: 0;
     padding: 0;
@@ -14,6 +16,8 @@
     height: 7vh;
 }
 
+
+
 #cart{
 
     display: flex;
@@ -28,11 +32,63 @@
     flex-direction: column;
 }
 
-#productForm{
+.forms{
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
 }
 
+.navs{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.body{
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    gap: 15px;
+    font-size: larger;
+    width: 30vw;
+    margin-top: 20px;
+    padding: 19px;
+    background-color: rgb(164, 181, 148);
+    box-shadow: rgb(61, 60, 60);
+    border-radius: 15PX;
+}
+
+#Admin-area{
+    display: flex;
+    padding: 10px;
+    margin-left: 30px;
+}
+
+#area{
+    justify-content: center;
+    align-items: center;
+    padding: 53.5px;
+    background-color: cadetblue;
+    height: 100%;
+}
+
+#profile-image img {
+    width: 100px; 
+    height: 10vh;
+    border-radius: 50%; 
+    
+}
+
+.body button {
+    padding: 10px;
+    color: black;
+    font-size: larger;
+}
+
+#profile-image{
+    margin-left: 30PX;
+}
 
 
