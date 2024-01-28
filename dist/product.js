@@ -44,7 +44,6 @@ class BooksActions {
         }
         Books.forEach((book, index) => {
             let profiles = document.querySelector('.profiless');
-            console.log(profiles);
             if (profiles) {
                 let newRow = document.createElement('tr');
                 newRow.className = "profiless";
@@ -52,8 +51,11 @@ class BooksActions {
                 numbering.textContent = `${index + 1}`;
                 let name = document.createElement('td');
                 name.textContent = book.names;
-                let image = document.createElement('td');
-                image.textContent = book.image;
+                let imageCell = document.createElement('td');
+                let imageElement = document.createElement('img');
+                imageElement.src = book.image;
+                imageElement.alt = 'Book Image';
+                imageCell.appendChild(imageElement);
                 let author = document.createElement('td');
                 author.textContent = book.author;
                 let title = document.createElement('td');
@@ -62,19 +64,19 @@ class BooksActions {
                 date_established.textContent = book.date_established;
                 let deletebtn = document.createElement('button');
                 deletebtn.textContent = "Delete";
-                deletebtn.style.backfaceVisibility = 'red';
+                deletebtn.style.backgroundColor = 'red';
                 deletebtn.addEventListener('click', () => {
                     this.deleteBook(index);
                 });
                 let updatebtn = document.createElement('button');
                 updatebtn.textContent = "Update";
-                updatebtn.style.backfaceVisibility = 'skyblue';
+                updatebtn.style.backgroundColor = 'skyblue';
                 updatebtn.addEventListener('click', () => {
                     this.updateBook(index);
                 });
                 newRow.appendChild(numbering);
                 newRow.appendChild(name);
-                newRow.appendChild(image);
+                newRow.appendChild(imageCell);
                 newRow.appendChild(author);
                 newRow.appendChild(title);
                 newRow.appendChild(date_established);
