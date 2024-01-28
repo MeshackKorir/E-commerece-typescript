@@ -74,6 +74,8 @@
 
 #area{
     background-image: url('https://24slides.com/templates/assets/templates-previews/8W3JfzOpJiNZBnDYXHpQ3TGSMiZSG782uNXuAsrA.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     justify-content: center;
     align-items: center;
     padding: 53.5px;
