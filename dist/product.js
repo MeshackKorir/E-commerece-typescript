@@ -39,8 +39,12 @@ body.addEventListener("submit", (e) => {
 });
 class BooksActions {
     displayBooks() {
+        if (profiles instanceof HTMLElement) {
+            profiles.innerHTML = '';
+        }
         Books.forEach((book, index) => {
             let profiles = document.querySelector('.profiless');
+            console.log(profiles);
             if (profiles) {
                 let newRow = document.createElement('tr');
                 newRow.className = "profiless";
@@ -108,7 +112,7 @@ class BooksActions {
         const storedBooks = localStorage.getItem('books');
         if (storedBooks) {
             Books = JSON.parse(storedBooks);
-            this.displayBooks();
+            // this.displayBooks();
         }
     }
 }
