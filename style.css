@@ -482,6 +482,12 @@ header {
   margin-bottom: 8px; /* Add some space below the image */
 }
 
+.tableheading img {
+  width: 150px; 
+  height: auto; 
+}
+
+
 .productsDiv{
   display: flex;
   justify-content: flex-start;

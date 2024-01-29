@@ -1,32 +1,44 @@
 "use strict";
-// // Define the types for the HTML elements
-// type HTMLAnchorElementWithHref = HTMLAnchorElement & { href: string };
-// type HTMLDivElementWithQuerySelector = HTMLDivElement & { querySelector: typeof document.querySelector };
-// type HTMLInputElementWithQuerySelector = HTMLInputElement & { querySelector: typeof document.querySelector };
-// type HTMLSpanElementWithClassName = HTMLSpanElement & { className: string };
 class displayingProducts {
     constructor() {
         this.divProduct = document.querySelector('.productsDiv');
+        this.cart = [];
     }
     displayBooks(books) {
-        if (this.divProduct instanceof HTMLElement) {
-            this.divProduct.innerHTML = '';
-            books.forEach((book, index) => {
-                let newRow = document.createElement('div');
-                newRow.className = "profiless";
-                newRow.innerHTML = `
-          <table>
-            <tr class="tableheading" style="gap: 15px;">
-
+        this.divProduct.innerHTML = '';
+        books.forEach((book, index) => {
+            let newRow = document.createElement('div');
+            newRow.className = "profiless";
+            newRow.innerHTML = `
+        <table>
+          <tr class="tableheading" style="gap: 15px;">
             <th><img src="${book.image}" alt="Book Image"></th>
-              <th>${book.names}</th>
-              <th>${book.title}</th>
-            </tr>
-          </table>
-        `;
-                this.divProduct.appendChild(newRow);
+            <th>${book.names}</th>
+            <th class="buttons">
+              <button class="add-to-cart-btn" data-index="${index}">Add to cart</button>
+            </th>
+          </tr>
+        </table>
+      `;
+            this.divProduct.appendChild(newRow);
+        });
+        const addToCartButtons = this.divProduct.querySelectorAll('.add-to-cart-btn');
+        addToCartButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const index = parseInt(button.getAttribute('data-index') || '0', 10);
+                const storedBooks = localStorage.getItem('books');
+                if (storedBooks) {
+                    const books = JSON.parse(storedBooks);
+                    const selectedBook = books[index];
+                    this.addToCart(selectedBook);
+                    this.displayCart(); // Update: Call displayCart directly after adding to cart
+                }
             });
-        }
+        });
+    }
+    addToCart(book) {
+        this.cart.push(book);
+        localStorage.setItem('cartItems', JSON.stringify(this.cart));
     }
     loadFromLocalStorageAndDisplay() {
         const storedBooks = localStorage.getItem('books');
@@ -35,9 +47,50 @@ class displayingProducts {
             this.displayBooks(books);
         }
     }
+    displayCart() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        if (cartItems && cartTotal) {
+            cartItems.innerHTML = ""; // Use innerHTML to clear content
+            let count = 0;
+            this.cart.forEach((el, index) => {
+                count += 1;
+                let cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                let cartName = document.createElement('div');
+                cartName.className = 'cart-name';
+                cartName.textContent = el.names;
+                let cartImg = document.createElement('img');
+                cartImg.className = 'cart-img';
+                cartImg.setAttribute('src', el.image);
+                let cartPrice = document.createElement('div');
+                cartPrice.className = 'cart-price';
+                cartPrice.textContent = `Ksh ${el.title}`;
+                let delItem = document.createElement('button');
+                delItem.className = 'del-item';
+                delItem.textContent = "Delete";
+                delItem.addEventListener('click', () => {
+                    this.delCartItem(index);
+                    count -= 1;
+                    cartTotal.textContent = count.toString();
+                });
+                cartItem.appendChild(cartName);
+                cartItem.appendChild(cartImg);
+                cartItem.appendChild(cartPrice);
+                cartItem.appendChild(delItem);
+                cartItems.appendChild(cartItem);
+            });
+            cartTotal.textContent = count.toString();
+        }
+    }
+    delCartItem(index) {
+        this.cart.splice(index, 1);
+        localStorage.setItem('cartItems', JSON.stringify(this.cart));
+        this.displayCart();
+    }
 }
-// Create an instance of displayingProducts
 let instances = new displayingProducts();
 window.onload = () => {
     instances.loadFromLocalStorageAndDisplay();
+    instances.displayCart();
 };

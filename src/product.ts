@@ -91,6 +91,8 @@ class BooksActions {
                 let date_established = document.createElement('td');
                 date_established.textContent = book.date_established;
 
+                
+
                 let deletebtn = document.createElement('button');
                 deletebtn.textContent = "Delete";
                 deletebtn.style.backgroundColor = 'red';

@@ -1,11 +1,11 @@
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
 
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-.navbar{
+.navbar {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -16,51 +16,46 @@
     height: 7vh;
 }
 
-
-
-#cart{
-
+#cart {
     display: flex;
     color: gray;
     margin-top: 10px;
-   font-size:x-large;
+    font-size: x-large;
 }
 
-.body-card{
+.body-card {
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-.forms{
+.forms {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
 }
 
-.navs{
+.navs {
     display: flex;
     flex-direction: row;
     gap: 25px;
 }
 
-.body{
-    
+.body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     gap: 15px;
     font-size: larger;
     width: 30vw;
     margin-top: 20px;
     padding: 19px;
     background-color: cadetblue;
-    box-shadow: rgb(221, 169, 169);
-    border-radius: 15PX;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
 }
 
-#Admin-area{
+#Admin-area {
     display: flex;
     padding: 10px;
     margin-left: 30px;
@@ -72,8 +67,8 @@
     margin-bottom: 5px;
 }
 
-#area{
-    background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAKkAtAMBIgACEQEDEQH/xAAaAAADAQEBAQAAAAAAAAAAAAAAAQIDBAUG/8QAKhABAQACAQIFAgYDAAAAAAAAAAECETEDIQQSQVFxMmETQmKBkaEzUrH/xAAaAQADAQEBAQAAAAAAAAAAAAAAAQIDBAUG/8QAHBEBAQEBAQADAQAAAAAAAAAAAAERAhIDITFR/9oADAMBAAIRAxEAPwD6gyhx9KiGIUOEqKgEBKOHChkqA4AS4DghwKI4DJUpCGIFSgCiEqUAwFaUFMA5SBgL1yCA2zxzEAhLVDhQ4RwHCVCVBDhHeSVpwAQHKDEitJ1WphnwYOVJwwFaWhwYI5SBmF6UBgHrgikqbvMEVjwSolUBwGRiHBDhHpKI5O4VBIuQSGk9ABwj0gYB6IDgCtIGCGkcOAKlLQMA9eeZCOhwqEEUkxjwqEZGcOFARnFxK8ImmoKmO1THSdNEhzG+k20kMtNl5cv9SsvrNN5D0Xo3OcbXCX5Z5Y2XuJ1o1IPQUeiAQyPSBgDXmw4JFSOhzFFQtK0VMKhTFUxToJUm1SLhWmmYrxmqS4imuQ5Cx4VEDRBoaVoj0aOQSHIQ0SC47x1eKrSpC09cmWPluvYm3Xx4yZLn4WlDOAxpBUAGvH6XU7ay5bRxT31+7Xp9WztzHX1z/GbrnBxGPUxy+WkZUzioUUkHFaKKTQIuRK4VGjFppEaRFA0ejESNOQGchDRo9Ho5L+xDWPX+ifLFp1s5ll5Yzi+fxOiA4FD0CVABr53FcZxcehQ0jTHLLHisovFnYG2PVynOq1nVvrj/AG54uIvMGuj8X9Jzq/p/tjFRFkLW34n6VTO+k0yi8ZtNkGtMcsr6r3fWpxmlIGiKhRX3uomjTioj8TCfniL4ifllpZaXp0y2TW9Rn1PET6Mefdy5dXPO97JPZJz4y9OiBnhddmplogOAhogOAi18zGkZ4rj0q1aRcRhLb27/AGdGHR9cr39mfVgTF4y+jTHGTiaaRneks5jauYX1WcRaBji0k0UiuO94RaWi3Xe9meXXn5ZPllnn5st+nonlU5ib01vVyvOX8J7+t2mHDxNqocKGC04cIJLVbb48MGnRvfSeh6ayAxEDShmCLXy0a9PG5ZajHG6vy7PD46x83vXpd/TrbYYzGai4mKjCkqKiYuJqarFUTFxNTpwdT6L8HFSdvf7I/CtcMUvq9DLHLeM3j7M+/q1l1nqoJSignVQ0Q4Ras4mKItOKwurtMOJqfTpx437qjDHO4feezbGyzcZ0/R6B2BI18jP+PQ6X0Y/Dhxj0ZxPh6XyV3nFxMipGNTVxUTFxFRaqKiYuJqbVRcTFxFTacV5ZeZP4KLiLUaU6eF5xx/iHej08pq4T9ouRcidpWuHr+E8k83T3ZOZ7OafZ7Oprvw8i83XG7pr8fe/TO0RSTjRN6UcI4lHo4qe8qYoqn0vz5TmhILB7r57pTeeM969Cd3m+G/yR3TiOv5L9vYraRUjKKZ1FbSKkYxcRamtpFyMIucItZ1tIuRhi0TaitpFyMI0xRU1tIqane6192WPDm8d9GPyj9rO1fifGy43Do3vecnF6ph+rq45nM+mdqoqJigiqMocJNOKTFQtTTBkRP//Z');
+#area {
+    background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...');
     background-repeat: no-repeat;
     background-size: cover;
     justify-content: center;
@@ -82,14 +77,12 @@
     background-color: rgb(24, 232, 239);
     height: 100%;
     font-family: 'Arial', sans-serif;
-
 }
 
 #profile-image img {
-    width: 100px; 
+    width: 60px;
     height: 10vh;
-    border-radius: 50%; 
-    
+    border-radius: 50%;
 }
 
 .body button {
@@ -98,36 +91,35 @@
     font-size: larger;
 }
 
-#profile-image{
-    margin-left: 30PX;
+#profile-image {
+    display: flex;
+    margin-left: 30px;
+    flex-direction: column;
 }
 
-.body button:hover{
+.body button:hover {
     color: rgb(27, 161, 209);
     cursor: pointer;
 }
 
-#two-forms{
+#two-forms {
     display: flex;
     align-items: flex-start;
     gap: 175px;
 }
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 60%;
-  }
-  
-  td, th {
+}
+
+td, th {
     border: 1px solid #5404d4;
     text-align: left;
     padding: 8px;
-  }
-  
-  tr:nth-child(even) {
+}
+
+tr:nth-child(even) {
     background-color: #dddddd;
-  }
-
-  
-
-
+}
