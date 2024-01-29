@@ -453,6 +453,42 @@ header {
   height: 60px;
 }
 
+.profiless table {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+.profiless th {
+  background-color: #f2f2f2;
+  padding: 8px;
+  text-align: left;
+}
+
+.profiless td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.profiless img {
+  display: block;
+  font-size: xx-large;
+  margin: 0 auto; /* Center the image within its container */
+  margin-bottom: 8px; /* Add some space below the image */
+}
+
+.productsDiv{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
 .footer-items {
   display: flex;

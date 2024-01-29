@@ -17,12 +17,10 @@ class displayingProducts {
                 newRow.innerHTML = `
           <table>
             <tr class="tableheading" style="gap: 15px;">
-              
+
+            <th><img src="${book.image}" alt="Book Image"></th>
               <th>${book.names}</th>
-              <th><img src="${book.image}" alt="Book Image"></th>
-              <th>${book.author}</th>
               <th>${book.title}</th>
-              <th>${book.date_established}</th>
             </tr>
           </table>
         `;
