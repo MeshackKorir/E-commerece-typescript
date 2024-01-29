@@ -17,43 +17,48 @@ class displayingProducts {
     this.cart = this.loadCartFromLocalStorage(); // Initialize cart from localStorage
   }
 
-  displayBooks(books: Book[]) {
-    this.divProduct.innerHTML = '';
+ displayBooks(books: Book[]) {
+  this.divProduct.innerHTML = '';
 
-    books.forEach((book: Book, index: number) => {
-      let newRow = document.createElement('div');
-      newRow.className = "profiless";
+  books.forEach((book: Book, index: number) => {
+    let newRow = document.createElement('div');
+    newRow.className = "profiless";
 
-      newRow.innerHTML = `
-        <table>
-          <tr class="tableheading" style="gap: 15px;">
-            <th><img src="${book.image}" alt="Book Image"></th>
-            <th>${book.names}</th>
-            <th class="buttons">
+    newRow.innerHTML = `
+      <table>
+        <tr class="tableheading" style="gap: 15px;">
+          <th><img src="${book.image}" alt="Book Image"></th>
+          <th>${book.names}</th>
+          <th class="buttons">
             <button class="add-to-cart-btn" data-index="${index}" style="background-color: Brown; color: white;">Add to cart</button>
-            </th>
-          </tr>
-        </table>
-      `;
+            <a href="#" class="view-details-link" data-index="${index}" style="background-color: red; color: white;">View Details</a>
+          </th>
+        </tr>
+      </table>
+    `;
 
-      this.divProduct.appendChild(newRow);
+    this.divProduct.appendChild(newRow);
+
+    // Attach event listener for the "Add to Cart" button
+    const addToCartButton = newRow.querySelector('.add-to-cart-btn') as HTMLButtonElement;
+    addToCartButton.addEventListener('click', () => {
+      const storedBooks = localStorage.getItem('books');
+      if (storedBooks) {
+        const books: Book[] = JSON.parse(storedBooks);
+        const selectedBook = books[index];
+        this.addToCart(selectedBook);
+        this.displayCart();
+      }
     });
 
-    const addToCartButtons = this.divProduct.querySelectorAll('.add-to-cart-btn');
-    addToCartButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const index = parseInt(button.getAttribute('data-index') || '0', 10);
-        const storedBooks = localStorage.getItem('books');
-
-        if (storedBooks) {
-          const books: Book[] = JSON.parse(storedBooks);
-          const selectedBook = books[index];
-          this.addToCart(selectedBook);
-          this.displayCart();
-        }
-      });
+    // Attach event listener for the "View Details" link
+    const viewDetailsLink = newRow.querySelector('.view-details-link') as HTMLAnchorElement;
+    viewDetailsLink.addEventListener('click', (event) => {
+      event.preventDefault(); // Prevent the default behavior of the link
+      window.location.href = `Product.html?index=${index}`;
     });
-  }
+  });
+}
 
   addToCart(book: Book) {
     this.cart.push(book);

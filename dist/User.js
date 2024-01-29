@@ -10,22 +10,21 @@ class displayingProducts {
             let newRow = document.createElement('div');
             newRow.className = "profiless";
             newRow.innerHTML = `
-        <table>
-          <tr class="tableheading" style="gap: 15px;">
-            <th><img src="${book.image}" alt="Book Image"></th>
-            <th>${book.names}</th>
-            <th class="buttons">
+      <table>
+        <tr class="tableheading" style="gap: 15px;">
+          <th><img src="${book.image}" alt="Book Image"></th>
+          <th>${book.names}</th>
+          <th class="buttons">
             <button class="add-to-cart-btn" data-index="${index}" style="background-color: Brown; color: white;">Add to cart</button>
-            </th>
-          </tr>
-        </table>
-      `;
+            <a href="#" class="view-details-link" data-index="${index}" style="background-color: red; color: white;">View Details</a>
+          </th>
+        </tr>
+      </table>
+    `;
             this.divProduct.appendChild(newRow);
-        });
-        const addToCartButtons = this.divProduct.querySelectorAll('.add-to-cart-btn');
-        addToCartButtons.forEach((button) => {
-            button.addEventListener('click', () => {
-                const index = parseInt(button.getAttribute('data-index') || '0', 10);
+            // Attach event listener for the "Add to Cart" button
+            const addToCartButton = newRow.querySelector('.add-to-cart-btn');
+            addToCartButton.addEventListener('click', () => {
                 const storedBooks = localStorage.getItem('books');
                 if (storedBooks) {
                     const books = JSON.parse(storedBooks);
@@ -33,6 +32,12 @@ class displayingProducts {
                     this.addToCart(selectedBook);
                     this.displayCart();
                 }
+            });
+            // Attach event listener for the "View Details" link
+            const viewDetailsLink = newRow.querySelector('.view-details-link');
+            viewDetailsLink.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent the default behavior of the link
+                window.location.href = `Product.html?index=${index}`;
             });
         });
     }
