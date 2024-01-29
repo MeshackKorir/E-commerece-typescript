@@ -14,7 +14,7 @@ class displayingProducts {
 
   constructor() {
     this.divProduct = document.querySelector('.productsDiv') as HTMLDivElement;
-    this.cart = [];
+    this.cart = this.loadCartFromLocalStorage(); // Initialize cart from localStorage
   }
 
   displayBooks(books: Book[]) {
@@ -30,7 +30,7 @@ class displayingProducts {
             <th><img src="${book.image}" alt="Book Image"></th>
             <th>${book.names}</th>
             <th class="buttons">
-              <button class="add-to-cart-btn" data-index="${index}">Add to cart</button>
+            <button class="add-to-cart-btn" data-index="${index}" style="background-color: Brown; color: white;">Add to cart</button>
             </th>
           </tr>
         </table>
@@ -49,7 +49,7 @@ class displayingProducts {
           const books: Book[] = JSON.parse(storedBooks);
           const selectedBook = books[index];
           this.addToCart(selectedBook);
-          this.displayCart(); // Update: Call displayCart directly after adding to cart
+          this.displayCart();
         }
       });
     });
@@ -68,12 +68,17 @@ class displayingProducts {
     }
   }
 
+  loadCartFromLocalStorage(): Book[] {
+    const storedCart = localStorage.getItem('cartItems');
+    return storedCart ? JSON.parse(storedCart) : [];
+  }
+
   displayCart() {
     const cartItems = document.getElementById('cart-items') as HTMLDivElement;
     const cartTotal = document.getElementById('cart-total') as HTMLSpanElementWithClassName;
 
     if (cartItems && cartTotal) {
-      cartItems.innerHTML = ""; // Use innerHTML to clear content
+      cartItems.innerHTML = "";
       let count = 0;
 
       this.cart.forEach((el, index) => {
@@ -97,6 +102,11 @@ class displayingProducts {
         let delItem = document.createElement('button');
         delItem.className = 'del-item';
         delItem.textContent = "Delete";
+
+        delItem.style.color = 'Black';
+        delItem.style.backgroundColor = 'red';
+        delItem.style.fontSize = '30px';
+        delItem.style.font = 'large';
         delItem.addEventListener('click', () => {
           this.delCartItem(index);
           count -= 1;
