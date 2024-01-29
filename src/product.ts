@@ -158,6 +158,49 @@ class BooksActions {
     }
 }
 
+
+
+// class Admin {
+//     private observers: User[] = [];
+
+//     addObserver(observer: User): void {
+//         this.observers.push(observer);
+//     }
+
+//     notifyObservers(product: Product): void {
+//         this.observers.forEach(observer => {
+//             observer.update(product);
+//         });
+//     }
+
+//     addProduct(product: Product): void {
+//         // Logic to add product
+//         // ...
+
+//         // Notify observers (user pages)
+//         this.notifyObservers(product);
+//     }
+// }
+
+// Example usage
+// const admin = new Admin();
+
+// Assuming you have a button or form to add a product
+const addButton = document.getElementById('add-product-btn');
+if (addButton) {
+    addButton.addEventListener('click', () => {
+        const product: Product = {
+            title: 'New Product',
+            description: 'Product description',
+            price: 19.99,
+            image: 'new-product.jpg',
+        };
+
+        // admin.addProduct(product);
+    });
+}
+
+
 let instance = new BooksActions();
 instance.loadFromLocalStorage();
 instance.displayBooks();
