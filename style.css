@@ -1,5 +1,6 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+@mixin template-footer-style($parent, $bg, $color: null, $active-color: null, $border: null)
 
 * {
   margin: 0;
