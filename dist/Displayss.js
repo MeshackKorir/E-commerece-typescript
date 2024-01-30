@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailsContainer = document.getElementById('book-details-container');
     if (detailsContainer && selectedBook) {
         detailsContainer.innerHTML = `
-        <h2>${selectedBook.names}</h2>
-        <p>Author: ${selectedBook.author}</p>
-        <p>Title: ${selectedBook.title}</p>
-        <p>Date Established: ${selectedBook.date_established}</p>
-      `;
+      <h2>${selectedBook.names}</h2>
+      <img src="${selectedBook.image}" alt="${selectedBook.title}">
+      <p>Author: ${selectedBook.author}</p>
+      <p>Title: ${selectedBook.title}</p>
+      <p>Date Established: ${selectedBook.date_established}</p>
+    `;
     }
 });
