@@ -115,9 +115,10 @@ table {
 }
 
 td, th {
-    border: 1px solid #5404d4;
+    border: 8px solid #111011;
     text-align: left;
     padding: 8px;
+    border-radius: 10px;
 }
 
 tr:nth-child(even) {
@@ -144,6 +145,7 @@ font-size: 15px;
 line-height: 24px;
 color: #737373;
 box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+border-radius: 10px;
 }
 .site-footer hr {
 border-top-color: #bbb;
@@ -256,3 +258,20 @@ background-color: #007bb6;
 .social-icons a.dribbble:hover {
 background-color: #ea4c89;
 }
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; 
+  }
+  
+  .delete-btn, .update-btn {
+    width: 120px; /* Set the width of the buttons */
+    padding: 10px; /* Add padding to the buttons */
+    font-size: 16px; /* Set the font size */
+    margin-bottom: 1px; /* Adjust margin as needed */
+    border-radius: 10px;
+  }
+  
+
+

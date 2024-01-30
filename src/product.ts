@@ -91,10 +91,9 @@ class BooksActions {
                 let date_established = document.createElement('td');
                 date_established.textContent = book.date_established;
 
-                
-
                 let deletebtn = document.createElement('button');
                 deletebtn.textContent = "Delete";
+                deletebtn.className = "delete-btn"; // Apply the CSS class
                 deletebtn.style.backgroundColor = 'red';
                 deletebtn.addEventListener('click', () => {
                     this.deleteBook(index);
@@ -102,6 +101,7 @@ class BooksActions {
 
                 let updatebtn = document.createElement('button');
                 updatebtn.textContent = "Update";
+                updatebtn.className = "update-btn"; // Apply the CSS class
                 updatebtn.style.backgroundColor = 'skyblue';
                 updatebtn.addEventListener('click', () => {
                     this.updateBook(index);
@@ -113,8 +113,13 @@ class BooksActions {
                 newRow.appendChild(author);
                 newRow.appendChild(title);
                 newRow.appendChild(date_established);
-                newRow.appendChild(deletebtn);
-                newRow.appendChild(updatebtn);
+
+                let buttonContainer = document.createElement('div');
+                buttonContainer.className = "button-container";
+                buttonContainer.appendChild(deletebtn);
+                buttonContainer.appendChild(updatebtn);
+
+                newRow.appendChild(buttonContainer);
 
                 // Append the new row to the profiles element
                 if (profiles instanceof HTMLElement) {
@@ -159,49 +164,6 @@ class BooksActions {
         }
     }
 }
-
-
-
-// class Admin {
-//     private observers: User[] = [];
-
-//     addObserver(observer: User): void {
-//         this.observers.push(observer);
-//     }
-
-//     notifyObservers(product: Product): void {
-//         this.observers.forEach(observer => {
-//             observer.update(product);
-//         });
-//     }
-
-//     addProduct(product: Product): void {
-//         // Logic to add product
-//         // ...
-
-//         // Notify observers (user pages)
-//         this.notifyObservers(product);
-//     }
-// }
-
-// Example usage
-// const admin = new Admin();
-
-// Assuming you have a button or form to add a product
-const addButton = document.getElementById('add-product-btn');
-if (addButton) {
-    addButton.addEventListener('click', () => {
-        const product: Product = {
-            title: 'New Product',
-            description: 'Product description',
-            price: 19.99,
-            image: 'new-product.jpg',
-        };
-
-        // admin.addProduct(product);
-    });
-}
-
 
 let instance = new BooksActions();
 instance.loadFromLocalStorage();
