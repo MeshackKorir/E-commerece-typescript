@@ -89,10 +89,8 @@ class DisplayingProducts {
     const existingCartItem = this.cart.find((cartItem) => cartItem.book?.names === book.names);
 
     if (existingCartItem) {
-      // If the item is already in the cart, increase its quantity
       existingCartItem.quantity += 1;
     } else {
-      // If it's a new item, add it to the cart with quantity 1
       const newCartItem = { book, quantity: 1 };
       this.cart.push(newCartItem);
     }
@@ -178,6 +176,6 @@ const instances = new DisplayingProducts();
 
 window.onload = () => {
   instances.loadFromLocalStorageAndDisplay();
-  instances.loadCartFromLocalStorage(); // Load cart from local storage
+  instances.loadCartFromLocalStorage(); 
   instances.displayCart();
 };

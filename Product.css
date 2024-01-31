@@ -1,15 +1,13 @@
-.book-card {
-    background-color: rgb(20, 185, 239);
-    border-radius: 10px;
-    padding: 15px;
-  }
+
+ *{
+  margin: 10px;
+  padding: 10px;
   
-  .image-container {
-    margin: 15px;
-  }
-  
-  .book-image {
-    width: 100%; /* Ensure the image fills its container */
-    border-radius: 5px; /* Add some border radius to the image if needed */
-  }
-  
+ } 
+#book-details-container{
+  background-color: bisque;
+  height: 100vh;
+  border-radius: 10px;
+  justify-content: center;
+
+}

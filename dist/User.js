@@ -59,11 +59,9 @@ class DisplayingProducts {
     addToCart(book) {
         const existingCartItem = this.cart.find((cartItem) => { var _a; return ((_a = cartItem.book) === null || _a === void 0 ? void 0 : _a.names) === book.names; });
         if (existingCartItem) {
-            // If the item is already in the cart, increase its quantity
             existingCartItem.quantity += 1;
         }
         else {
-            // If it's a new item, add it to the cart with quantity 1
             const newCartItem = { book, quantity: 1 };
             this.cart.push(newCartItem);
         }
@@ -131,6 +129,6 @@ class DisplayingProducts {
 const instances = new DisplayingProducts();
 window.onload = () => {
     instances.loadFromLocalStorageAndDisplay();
-    instances.loadCartFromLocalStorage(); // Load cart from local storage
+    instances.loadCartFromLocalStorage();
     instances.displayCart();
 };

@@ -218,11 +218,18 @@ header {
     background-color: #61d765;
 }
 
+.view-details-link{
+  padding: 10px;
+  border-radius: 10px;
+}
+
 .add-to-cart-btn{
   background-color: rgb(229, 192, 192); 
+  cursor: pointer;
   border: "none"; 
   color: #f08c61; 
-  
+  padding: 10px;
+  border-radius: 7px;
 }
 
 #product-price {
@@ -294,29 +301,36 @@ header {
   justify-content: center;
   background-color: #222f3d;
   width: 100%;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 10px;
   padding: 15px;
   /* border: none; */
 }
 
 .imageSpace {
-  height: 23vh;
-  width: 33vh;
+  height: 20vh;
+  width: 30vh;
   padding: 10px;
   border-radius: 5px;
   background-color: #222f3d;
   transition: transform 0.3s; 
+  align-items: center;
 }
 
 .imageSpace:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .user-images{
   display: flex;
   height: 15vh;
   width: 80px;
+}
+
+
+.button-container{
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .orderButton{
@@ -333,12 +347,13 @@ header {
   
 }
 .cart-item {
-  width: calc(33.33% - 10px);
+  /* width: calc(33.33% - 10px); */
   border: none;
   border-radius: 3px;
-  margin: 10px 0;
+  margin: 10px -2;
   padding: 10px;
-  background-color: #f9f9f9;
+  background-color: #8c8787;
+  width: 10vw;
   box-sizing: border-box;
 
 }
@@ -500,6 +515,8 @@ header {
   font-weight: 600;
   height: 60px;
 }
+
+
 
 .profiless table {
   display: flex;

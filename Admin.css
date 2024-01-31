@@ -23,6 +23,18 @@
     font-size: x-large;
 }
 
+.table-wrapper{
+    border-top: 4px solid blueviolet;
+    border-bottom: 4px solid blueviolet;
+    border-left: 4px solid blueviolet;
+    border-right: blueviolet;
+    overflow-y: scroll;
+    height: 80vh;
+
+  }
+
+
+  
 .body-card {
     display: flex;
     justify-content: center;
