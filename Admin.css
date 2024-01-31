@@ -13,7 +13,7 @@
     margin-right: 10px;
     margin-top: 15px;
     background-color: antiquewhite;
-    height: 7vh;
+    height: 2vh;
 }
 
 #cart {
@@ -27,6 +27,12 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+.prodImg{
+    display: flex;
+    width: 100px;
+    height: 15vh;
 }
 
 .forms {
@@ -50,8 +56,8 @@
     width: 30vw;
     margin-top: 20px;
     padding: 19px;
-    background-color: cadetblue;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(47, 24, 176);
+    box-shadow: 1 0 10px rgba(186, 13, 13, 0.1);
     border-radius: 15px;
 }
 
@@ -61,25 +67,26 @@
     margin-left: 30px;
     justify-content: center;
     align-items: center;
-    background-color: cadetblue;
+    /* background-color: rgb(37, 169, 174); */
     border-radius: 4px;
     color: rgb(28, 95, 220);
     margin-bottom: 5px;
 }
 
 #area {
-    background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...');
+    background-image: url('https://image.slidesdocs.com/responsive-images/background/business-financial-e-commerce-powerpoint-background_0e080305da__960_540.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     justify-content: center;
     align-items: center;
     padding: 53.5px;
-    background-color: rgb(24, 232, 239);
+    /* background-color: rgb(35, 38, 38); */
     height: 100%;
-    font-family: 'Arial', sans-serif;
+    /* font-family: 'Arial', sans-serif; */
 }
 
 #profile-image img {
+    margin-top: 100px;
     width: 60px;
     height: 10vh;
     border-radius: 50%;
@@ -87,7 +94,7 @@
 
 .body button {
     padding: 10px;
-    color: black;
+    color: rgb(119, 140, 142);
     font-size: larger;
 }
 
@@ -95,6 +102,8 @@
     display: flex;
     margin-left: 30px;
     flex-direction: column;
+    height: 12vh;
+    
 }
 
 .body button:hover {
@@ -115,15 +124,16 @@ table {
 }
 
 td, th {
-    border: 8px solid #111011;
+    border: 6px solid #051497;
+    color: #dddddd;
     text-align: left;
     padding: 8px;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
     background-color: #dddddd;
-}
+} */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
 *{
@@ -139,13 +149,13 @@ align-items: center;
 justify-content: center;
 }
 .site-footer {
-background-color: #26272b;
+background-color: #636c8f;
 padding: 45px 0 20px;
 font-size: 15px;
 line-height: 24px;
-color: #737373;
+color: hsl(0, 29%, 97%);
 box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-border-radius: 10px;
+/* border-radius: 10px; */
 }
 .site-footer hr {
 border-top-color: #bbb;
@@ -162,7 +172,7 @@ margin-top: 5px;
 letter-spacing: 2px;
 }
 .site-footer a {
-color: #737373;
+color: #f4f0f0;
 }
 .site-footer a:hover {
 color: #fff;
@@ -176,7 +186,7 @@ list-style: none;
 display: block;
 }
 .footer-links a {
-color: #737373;
+color: #f4f2f2;
 }
 .footer-links a:active,
 .footer-links a:focus,
@@ -194,7 +204,11 @@ line-height: 40px;
 margin-left: 6px;
 margin-right: 0;
 border-radius: 100%;
-background-color: #33353d;
+background-color: #2e4bf0;
+}
+
+.update-btn{
+    gap: 5px;
 }
 .copyright-text {
 margin: 0;
@@ -224,7 +238,7 @@ margin-bottom: 4px;
 }
 .social-icons a {
 background-color: #eceeef;
-color: #818a91;
+color: #f0f4f7;
 font-size: 16px;
 display: inline-block;
 line-height: 44px;
@@ -247,7 +261,7 @@ color: #fff;
 background-color: #29aafe;
 }
 .social-icons a.facebook:hover {
-background-color: #3b5998;
+background-color: #f7f9fd;
 }
 .social-icons a.twitter:hover {
 background-color: #00aced;

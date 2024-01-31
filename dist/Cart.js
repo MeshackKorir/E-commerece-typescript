@@ -4,33 +4,18 @@ let cartTotals = 0;
 function updateCartDisplay() {
     const cartItems = document.getElementById('cart-items');
     const cartTotalDisplay = document.getElementById('cart-total');
+    if (!cartItems || !cartTotalDisplay) {
+        console.error('Required HTML elements not found.');
+        return;
+    }
     // Clear the existing cart display
-    if (cartItems) {
-        cartItems.innerHTML = '';
-        cart.forEach((item, index) => {
-            const cartItem = document.createElement('li');
-            const product = item.product;
-            const quantity = item.quantity;
-            cartItem.classList.add('cart-item'); // Add the cart-item class
-            cartItem.innerHTML = `
-                <img src="${product.image}" alt="${product.title}">
-                <div>
-                    <h3>${product.title}</h3>
-                    <p>Description: ${product.description}</p>
-                    <p>Price: $${product.price}</p>
-                    <p>Quantity: ${quantity}</p>
-                </div>
-                <button class="delete-button" data-index="${index}">Delete</button>
-            `;
-            if (cartItems) {
-                cartItems.appendChild(cartItem);
-            }
-        });
-    }
+    cartItems.innerHTML = '';
+    cart.forEach((item, index) => {
+        const cartItem = createCartItemElement(item, index);
+        cartItems.appendChild(cartItem);
+    });
     // Cart total
-    if (cartTotalDisplay) {
-        cartTotalDisplay.textContent = `$${cartTotals.toFixed(2)}`;
-    }
+    cartTotalDisplay.textContent = `$${cartTotals.toFixed(2)}`;
     // Attach click event listeners to the delete buttons
     const deleteButtons = document.querySelectorAll('.delete-button');
     deleteButtons.forEach(deleteButton => {
@@ -40,6 +25,24 @@ function updateCartDisplay() {
             deleteCartItem(index);
         });
     });
+}
+// Function to create a cart item HTML element
+function createCartItemElement(item, index) {
+    const cartItem = document.createElement('li');
+    const product = item.product;
+    const quantity = item.quantity;
+    cartItem.classList.add('cart-item');
+    cartItem.innerHTML = `
+        <img src="${product.image}" alt="${product.title}">
+        <div>
+            <h3>${product.title}</h3>
+            <p>Description: ${product.description}</p>
+            <p>Price: $${product.price}</p>
+            <p>Quantity: ${quantity}</p>
+        </div>
+        <button class="delete-button" data-index="${index}">Delete</button>
+    `;
+    return cartItem;
 }
 // Function to delete a cart item by index
 function deleteCartItem(index) {

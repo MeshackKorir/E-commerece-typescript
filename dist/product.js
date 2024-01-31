@@ -1,25 +1,33 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 let body = document.querySelector(".body");
 let image = document.querySelector('#profile');
 let names = document.querySelector('#names');
-let author = document.querySelector('#author');
+let price = document.querySelector('#itemPrice');
 let title = document.querySelector('#title');
 let date_established = document.querySelector('#date');
 let profiles = document.querySelector('.profiless');
 let buttonOnClick = document.querySelector('#button');
 buttonOnClick.addEventListener("click", (() => { }));
 let currentIndex;
-// Initializing an empty array
 let Books = [];
-body.addEventListener("submit", (e) => {
+body.addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
-    let isValidBook = names.value.trim() !== "" && image.value.trim() !== "" && author.value.trim() !== "" && title.value.trim() !== "" && date_established.value.trim() !== "";
+    let isValidBook = names.value.trim() !== "" && image.value.trim() !== "" && price.value.trim() !== "" && title.value.trim() !== "" && date_established.value.trim() !== "";
     if (isValidBook) {
         let newBookDetails = {
             id: Books.length + 1,
             names: names.value.trim(),
             image: image.value.trim(),
-            author: author.value.trim(),
+            price: parseFloat(price.value.trim()), // Parse as float
             title: title.value.trim(),
             date_established: date_established.value.trim(),
         };
@@ -29,14 +37,15 @@ body.addEventListener("submit", (e) => {
         else {
             Books.push(newBookDetails);
         }
+        yield instance.saveToLocalStorage(); // Use await to ensure the data is saved
         instance.displayBooks();
         names.value = "";
         image.value = "";
-        author.value = "";
+        price.value = "";
         title.value = "";
         date_established.value = "";
     }
-});
+}));
 class BooksActions {
     displayBooks() {
         if (profiles instanceof HTMLElement) {
@@ -53,33 +62,34 @@ class BooksActions {
                 name.textContent = book.names;
                 let imageCell = document.createElement('td');
                 let imageElement = document.createElement('img');
+                imageElement.className = "prodImg";
                 imageElement.src = book.image;
                 imageElement.alt = 'Book Image';
                 imageCell.appendChild(imageElement);
-                let author = document.createElement('td');
-                author.textContent = book.author;
+                let priceCell = document.createElement('td');
+                priceCell.textContent = book.price.toString();
                 let title = document.createElement('td');
                 title.textContent = book.title;
                 let date_established = document.createElement('td');
                 date_established.textContent = book.date_established;
                 let deletebtn = document.createElement('button');
                 deletebtn.textContent = "Delete";
-                deletebtn.className = "delete-btn"; // Apply the CSS class
-                deletebtn.style.backgroundColor = 'red';
+                deletebtn.className = "delete-btn";
+                deletebtn.style.backgroundColor = 'white';
                 deletebtn.addEventListener('click', () => {
                     this.deleteBook(index);
                 });
                 let updatebtn = document.createElement('button');
                 updatebtn.textContent = "Update";
-                updatebtn.className = "update-btn"; // Apply the CSS class
-                updatebtn.style.backgroundColor = 'skyblue';
+                updatebtn.className = "update-btn";
+                updatebtn.style.backgroundColor = 'darkblue';
                 updatebtn.addEventListener('click', () => {
                     this.updateBook(index);
                 });
                 newRow.appendChild(numbering);
                 newRow.appendChild(name);
                 newRow.appendChild(imageCell);
-                newRow.appendChild(author);
+                newRow.appendChild(priceCell);
                 newRow.appendChild(title);
                 newRow.appendChild(date_established);
                 let buttonContainer = document.createElement('div');
@@ -87,7 +97,6 @@ class BooksActions {
                 buttonContainer.appendChild(deletebtn);
                 buttonContainer.appendChild(updatebtn);
                 newRow.appendChild(buttonContainer);
-                // Append the new row to the profiles element
                 if (profiles instanceof HTMLElement) {
                     profiles.appendChild(newRow);
                 }
@@ -107,19 +116,20 @@ class BooksActions {
         let user = Books[index];
         names.value = user.names;
         title.value = user.title;
-        author.value = user.author;
+        price.value = user.price.toString();
         date_established.value = user.date_established;
         image.value = user.image;
         this.saveToLocalStorage();
     }
     saveToLocalStorage() {
-        localStorage.setItem('books', JSON.stringify(Books));
+        return __awaiter(this, void 0, void 0, function* () {
+            yield localStorage.setItem('books', JSON.stringify(Books));
+        });
     }
     loadFromLocalStorage() {
         const storedBooks = localStorage.getItem('books');
         if (storedBooks) {
             Books = JSON.parse(storedBooks);
-            // this.displayBooks();
         }
     }
 }

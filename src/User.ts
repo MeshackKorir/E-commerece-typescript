@@ -1,67 +1,102 @@
+"use strict";
+
 interface Book {
   names: string;
   image: string;
-  author: string;
+  price: number;
   title: string;
   date_established: string;
 }
 
 type HTMLSpanElementWithClassName = HTMLSpanElement & { className: string };
 
-class displayingProducts {
+class DisplayingProducts {
   private divProduct: HTMLDivElement;
-  private cart: Book[];
+  private cart: { book: Book; quantity: number }[];
 
   constructor() {
     this.divProduct = document.querySelector('.productsDiv') as HTMLDivElement;
-    this.cart = this.loadCartFromLocalStorage(); // Initialize cart from localStorage
+    this.cart = this.loadCartFromLocalStorage();
+
+    this.setupEventListeners();
   }
 
- displayBooks(books: Book[]) {
-  this.divProduct.innerHTML = '';
+  private setupEventListeners() {
+    this.divProduct.addEventListener('click', (event) => {
+      this.handleButtonClick(event);
+    });
+  }
 
-  books.forEach((book: Book, index: number) => {
-    let newRow = document.createElement('div');
-    newRow.className = "profiless";
+  private handleButtonClick(event: Event) {
+    const target = event.target as HTMLElement;
 
-    newRow.innerHTML = `
-      <table>
-        <tr class="tableheading" style="gap: 15px;">
-          <th><img src="${book.image}" alt="Book Image"></th>
-          <th>${book.names}</th>
-          <th class="buttons">
-            <button class="add-to-cart-btn" data-index="${index}" style="background-color: Brown; color: white;">Add to cart</button>
-            <a href="#" class="view-details-link" data-index="${index}" style="background-color: red; color: white;">View Details</a>
-          </th>
-        </tr>
-      </table>
-    `;
+    if (target.classList.contains('add-to-cart-btn')) {
+      const index = target.getAttribute('data-index');
 
-    this.divProduct.appendChild(newRow);
+      if (index !== null) {
+        const selectedBook = this.getBookFromIndex(index);
 
-    // Attach event listener for the "Add to Cart" button
-    const addToCartButton = newRow.querySelector('.add-to-cart-btn') as HTMLButtonElement;
-    addToCartButton.addEventListener('click', () => {
-      const storedBooks = localStorage.getItem('books');
-      if (storedBooks) {
-        const books: Book[] = JSON.parse(storedBooks);
-        const selectedBook = books[index];
-        this.addToCart(selectedBook);
-        this.displayCart();
+        if (selectedBook) {
+          this.addToCart(selectedBook);
+          this.displayCart();
+        }
       }
-    });
+    }
+  }
 
-    // Attach event listener for the "View Details" link
-    const viewDetailsLink = newRow.querySelector('.view-details-link') as HTMLAnchorElement;
-    viewDetailsLink.addEventListener('click', (event) => {
-      event.preventDefault(); // Prevent the default behavior of the link
-      window.location.href = `Product.html?index=${index}`;
+  private getBookFromIndex(index: string): Book | undefined {
+    const storedBooks = localStorage.getItem('books');
+
+    if (storedBooks) {
+      const books: Book[] = JSON.parse(storedBooks);
+      return books[parseInt(index, 10)];
+    }
+
+    return undefined;
+  }
+
+  displayBooks(books: Book[]) {
+    this.divProduct.innerHTML = '';
+  
+    books.forEach((book: Book, index: number) => {
+      const productContainer = document.createElement('div');
+      productContainer.className = 'profiless';
+  
+      productContainer.innerHTML = `
+        <div class="card">
+          <img src="${book.image}" alt="Book Image" class="imageSpace">
+          <p>${book.names}</p>
+          <p>Price: $${book.price}</p> <!-- Include the price information -->
+          <div class="button-container">
+            <button class="add-to-cart-btn" data-index="${index}" style= " border: none">Add to cart</button>
+            <a href="#" class="view-details-link" data-index="${index}" style="background-color: #0a0a23; color: white;">View Details</a>
+          </div>
+        </div>
+      `;
+  
+      this.divProduct.appendChild(productContainer);
+  
+      // Attach event listener for the "View Details" link
+      const viewDetailsLink = productContainer.querySelector('.view-details-link') as HTMLAnchorElement;
+      viewDetailsLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.location.href = `Product.html?index=${index}`;
+      });
     });
-  });
-}
+  }
 
   addToCart(book: Book) {
-    this.cart.push(book);
+    const existingCartItem = this.cart.find((cartItem) => cartItem.book?.names === book.names);
+
+    if (existingCartItem) {
+      // If the item is already in the cart, increase its quantity
+      existingCartItem.quantity += 1;
+    } else {
+      // If it's a new item, add it to the cart with quantity 1
+      const newCartItem = { book, quantity: 1 };
+      this.cart.push(newCartItem);
+    }
+
     localStorage.setItem('cartItems', JSON.stringify(this.cart));
   }
 
@@ -73,9 +108,10 @@ class displayingProducts {
     }
   }
 
-  loadCartFromLocalStorage(): Book[] {
+  loadCartFromLocalStorage(): { book: Book; quantity: number }[] {
     const storedCart = localStorage.getItem('cartItems');
-    return storedCart ? JSON.parse(storedCart) : [];
+    this.cart = storedCart ? JSON.parse(storedCart) : [];
+    return this.cart;
   }
 
   displayCart() {
@@ -83,47 +119,48 @@ class displayingProducts {
     const cartTotal = document.getElementById('cart-total') as HTMLSpanElementWithClassName;
 
     if (cartItems && cartTotal) {
-      cartItems.innerHTML = "";
+      cartItems.innerHTML = '';
       let count = 0;
 
-      this.cart.forEach((el, index) => {
-        count += 1;
+      this.cart.forEach((cartItem, index) => {
+        count += cartItem.quantity;
 
-        let cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
+        const cartItemElement = document.createElement('div');
+        cartItemElement.className = 'cart-item';
 
-        let cartName = document.createElement('div');
+        const cartName = document.createElement('div');
         cartName.className = 'cart-name';
-        cartName.textContent = el.names;
+        cartName.textContent = cartItem.book.names;
 
-        let cartImg = document.createElement('img');
+        const cartImg = document.createElement('img');
         cartImg.className = 'cart-img';
-        cartImg.setAttribute('src', el.image);
+        cartImg.setAttribute('src', cartItem.book.image);
+        cartImg.className = 'user-images';
 
-        let cartPrice = document.createElement('div');
-        cartPrice.className = 'cart-price';
-        cartPrice.textContent = `Ksh ${el.title}`;
+        const cartQuantity = document.createElement('div');
+        cartQuantity.className = 'cart-quantity';
+        cartQuantity.textContent = `Quantity: ${cartItem.quantity}`;
 
-        let delItem = document.createElement('button');
+        const delItem = document.createElement('button');
         delItem.className = 'del-item';
-        delItem.textContent = "Delete";
+        delItem.textContent = 'Delete';
 
-        delItem.style.color = 'Black';
-        delItem.style.backgroundColor = 'red';
-        delItem.style.fontSize = '30px';
+        delItem.style.color = 'white';
+        delItem.style.backgroundColor = 'black';
+        delItem.style.fontSize = '18px';
         delItem.style.font = 'large';
         delItem.addEventListener('click', () => {
           this.delCartItem(index);
-          count -= 1;
+          count -= cartItem.quantity;
           cartTotal.textContent = count.toString();
         });
 
-        cartItem.appendChild(cartName);
-        cartItem.appendChild(cartImg);
-        cartItem.appendChild(cartPrice);
-        cartItem.appendChild(delItem);
+        cartItemElement.appendChild(cartName);
+        cartItemElement.appendChild(cartImg);
+        cartItemElement.appendChild(cartQuantity);
+        cartItemElement.appendChild(delItem);
 
-        cartItems.appendChild(cartItem);
+        cartItems.appendChild(cartItemElement);
       });
 
       cartTotal.textContent = count.toString();
@@ -137,8 +174,10 @@ class displayingProducts {
   }
 }
 
-let instances = new displayingProducts();
+const instances = new DisplayingProducts();
+
 window.onload = () => {
   instances.loadFromLocalStorageAndDisplay();
+  instances.loadCartFromLocalStorage(); // Load cart from local storage
   instances.displayCart();
 };

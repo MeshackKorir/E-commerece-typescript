@@ -1,48 +1,72 @@
 "use strict";
-class displayingProducts {
+class DisplayingProducts {
     constructor() {
         this.divProduct = document.querySelector('.productsDiv');
-        this.cart = this.loadCartFromLocalStorage(); // Initialize cart from localStorage
+        this.cart = this.loadCartFromLocalStorage();
+        this.setupEventListeners();
+    }
+    setupEventListeners() {
+        this.divProduct.addEventListener('click', (event) => {
+            this.handleButtonClick(event);
+        });
+    }
+    handleButtonClick(event) {
+        const target = event.target;
+        if (target.classList.contains('add-to-cart-btn')) {
+            const index = target.getAttribute('data-index');
+            if (index !== null) {
+                const selectedBook = this.getBookFromIndex(index);
+                if (selectedBook) {
+                    this.addToCart(selectedBook);
+                    this.displayCart();
+                }
+            }
+        }
+    }
+    getBookFromIndex(index) {
+        const storedBooks = localStorage.getItem('books');
+        if (storedBooks) {
+            const books = JSON.parse(storedBooks);
+            return books[parseInt(index, 10)];
+        }
+        return undefined;
     }
     displayBooks(books) {
         this.divProduct.innerHTML = '';
         books.forEach((book, index) => {
-            let newRow = document.createElement('div');
-            newRow.className = "profiless";
-            newRow.innerHTML = `
-      <table>
-        <tr class="tableheading" style="gap: 15px;">
-          <th><img src="${book.image}" alt="Book Image"></th>
-          <th>${book.names}</th>
-          <th class="buttons">
-            <button class="add-to-cart-btn" data-index="${index}" style="background-color: Brown; color: white;">Add to cart</button>
-            <a href="#" class="view-details-link" data-index="${index}" style="background-color: red; color: white;">View Details</a>
-          </th>
-        </tr>
-      </table>
-    `;
-            this.divProduct.appendChild(newRow);
-            // Attach event listener for the "Add to Cart" button
-            const addToCartButton = newRow.querySelector('.add-to-cart-btn');
-            addToCartButton.addEventListener('click', () => {
-                const storedBooks = localStorage.getItem('books');
-                if (storedBooks) {
-                    const books = JSON.parse(storedBooks);
-                    const selectedBook = books[index];
-                    this.addToCart(selectedBook);
-                    this.displayCart();
-                }
-            });
+            const productContainer = document.createElement('div');
+            productContainer.className = 'profiless';
+            productContainer.innerHTML = `
+        <div class="card">
+          <img src="${book.image}" alt="Book Image" class="imageSpace">
+          <p>${book.names}</p>
+          <p>Price: $${book.price}</p> <!-- Include the price information -->
+          <div class="button-container">
+            <button class="add-to-cart-btn" data-index="${index}" style= " border: none">Add to cart</button>
+            <a href="#" class="view-details-link" data-index="${index}" style="background-color: #0a0a23; color: white;">View Details</a>
+          </div>
+        </div>
+      `;
+            this.divProduct.appendChild(productContainer);
             // Attach event listener for the "View Details" link
-            const viewDetailsLink = newRow.querySelector('.view-details-link');
+            const viewDetailsLink = productContainer.querySelector('.view-details-link');
             viewDetailsLink.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent the default behavior of the link
+                event.preventDefault();
                 window.location.href = `Product.html?index=${index}`;
             });
         });
     }
     addToCart(book) {
-        this.cart.push(book);
+        const existingCartItem = this.cart.find((cartItem) => { var _a; return ((_a = cartItem.book) === null || _a === void 0 ? void 0 : _a.names) === book.names; });
+        if (existingCartItem) {
+            // If the item is already in the cart, increase its quantity
+            existingCartItem.quantity += 1;
+        }
+        else {
+            // If it's a new item, add it to the cart with quantity 1
+            const newCartItem = { book, quantity: 1 };
+            this.cart.push(newCartItem);
+        }
         localStorage.setItem('cartItems', JSON.stringify(this.cart));
     }
     loadFromLocalStorageAndDisplay() {
@@ -54,44 +78,46 @@ class displayingProducts {
     }
     loadCartFromLocalStorage() {
         const storedCart = localStorage.getItem('cartItems');
-        return storedCart ? JSON.parse(storedCart) : [];
+        this.cart = storedCart ? JSON.parse(storedCart) : [];
+        return this.cart;
     }
     displayCart() {
         const cartItems = document.getElementById('cart-items');
         const cartTotal = document.getElementById('cart-total');
         if (cartItems && cartTotal) {
-            cartItems.innerHTML = "";
+            cartItems.innerHTML = '';
             let count = 0;
-            this.cart.forEach((el, index) => {
-                count += 1;
-                let cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                let cartName = document.createElement('div');
+            this.cart.forEach((cartItem, index) => {
+                count += cartItem.quantity;
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                const cartName = document.createElement('div');
                 cartName.className = 'cart-name';
-                cartName.textContent = el.names;
-                let cartImg = document.createElement('img');
+                cartName.textContent = cartItem.book.names;
+                const cartImg = document.createElement('img');
                 cartImg.className = 'cart-img';
-                cartImg.setAttribute('src', el.image);
-                let cartPrice = document.createElement('div');
-                cartPrice.className = 'cart-price';
-                cartPrice.textContent = `Ksh ${el.title}`;
-                let delItem = document.createElement('button');
+                cartImg.setAttribute('src', cartItem.book.image);
+                cartImg.className = 'user-images';
+                const cartQuantity = document.createElement('div');
+                cartQuantity.className = 'cart-quantity';
+                cartQuantity.textContent = `Quantity: ${cartItem.quantity}`;
+                const delItem = document.createElement('button');
                 delItem.className = 'del-item';
-                delItem.textContent = "Delete";
-                delItem.style.color = 'Black';
-                delItem.style.backgroundColor = 'red';
-                delItem.style.fontSize = '30px';
+                delItem.textContent = 'Delete';
+                delItem.style.color = 'white';
+                delItem.style.backgroundColor = 'black';
+                delItem.style.fontSize = '18px';
                 delItem.style.font = 'large';
                 delItem.addEventListener('click', () => {
                     this.delCartItem(index);
-                    count -= 1;
+                    count -= cartItem.quantity;
                     cartTotal.textContent = count.toString();
                 });
-                cartItem.appendChild(cartName);
-                cartItem.appendChild(cartImg);
-                cartItem.appendChild(cartPrice);
-                cartItem.appendChild(delItem);
-                cartItems.appendChild(cartItem);
+                cartItemElement.appendChild(cartName);
+                cartItemElement.appendChild(cartImg);
+                cartItemElement.appendChild(cartQuantity);
+                cartItemElement.appendChild(delItem);
+                cartItems.appendChild(cartItemElement);
             });
             cartTotal.textContent = count.toString();
         }
@@ -102,8 +128,9 @@ class displayingProducts {
         this.displayCart();
     }
 }
-let instances = new displayingProducts();
+const instances = new DisplayingProducts();
 window.onload = () => {
     instances.loadFromLocalStorageAndDisplay();
+    instances.loadCartFromLocalStorage(); // Load cart from local storage
     instances.displayCart();
 };
