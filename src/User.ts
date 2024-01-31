@@ -8,25 +8,11 @@ interface Book {
   date_established: string;
 }
 
-interface Product {
-  names: string;
-  image: string;
-  price: number;
-  title: string;
-  date_established: string;
-}
-
-interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
-
 type HTMLSpanElementWithClassName = HTMLSpanElement & { className: string };
 
 class DisplayingProducts {
   private divProduct: HTMLDivElement;
-  private cart: CartItem[];
+  private cart: { book: Book; quantity: number }[];
 
   constructor() {
     this.divProduct = document.querySelector('.productsDiv') as HTMLDivElement;
@@ -71,11 +57,11 @@ class DisplayingProducts {
 
   displayBooks(books: Book[]) {
     this.divProduct.innerHTML = '';
-
+  
     books.forEach((book: Book, index: number) => {
       const productContainer = document.createElement('div');
       productContainer.className = 'profiless';
-
+  
       productContainer.innerHTML = `
         <div class="card">
           <img src="${book.image}" alt="Book Image" class="imageSpace">
@@ -87,9 +73,9 @@ class DisplayingProducts {
           </div>
         </div>
       `;
-
+  
       this.divProduct.appendChild(productContainer);
-
+  
       // Attach event listener for the "View Details" link
       const viewDetailsLink = productContainer.querySelector('.view-details-link') as HTMLAnchorElement;
       viewDetailsLink.addEventListener('click', (event) => {
@@ -100,14 +86,14 @@ class DisplayingProducts {
   }
 
   addToCart(book: Book) {
-    const existingCartItem = this.cart.find((cartItem) => cartItem.product.names === book.names);
+    const existingCartItem = this.cart.find((cartItem) => cartItem.book?.names === book.names);
 
     if (existingCartItem) {
       // If the item is already in the cart, increase its quantity
       existingCartItem.quantity += 1;
     } else {
       // If it's a new item, add it to the cart with quantity 1
-      const newCartItem: CartItem = { product: book, quantity: 1 };
+      const newCartItem = { book, quantity: 1 };
       this.cart.push(newCartItem);
     }
 
@@ -122,7 +108,7 @@ class DisplayingProducts {
     }
   }
 
-  loadCartFromLocalStorage(): CartItem[] {
+  loadCartFromLocalStorage(): { book: Book; quantity: number }[] {
     const storedCart = localStorage.getItem('cartItems');
     this.cart = storedCart ? JSON.parse(storedCart) : [];
     return this.cart;
@@ -144,11 +130,11 @@ class DisplayingProducts {
 
         const cartName = document.createElement('div');
         cartName.className = 'cart-name';
-        cartName.textContent = cartItem.product.names;
+        cartName.textContent = cartItem.book.names;
 
         const cartImg = document.createElement('img');
         cartImg.className = 'cart-img';
-        cartImg.setAttribute('src', cartItem.product.image);
+        cartImg.setAttribute('src', cartItem.book.image);
         cartImg.className = 'user-images';
 
         const cartQuantity = document.createElement('div');

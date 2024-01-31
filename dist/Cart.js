@@ -8,15 +8,12 @@ function updateCartDisplay() {
         console.error('Required HTML elements not found.');
         return;
     }
-    // Clear the existing cart display
     cartItems.innerHTML = '';
     cart.forEach((item, index) => {
         const cartItem = createCartItemElement(item, index);
         cartItems.appendChild(cartItem);
     });
-    // Cart total
     cartTotalDisplay.textContent = `$${cartTotals.toFixed(2)}`;
-    // Attach click event listeners to the delete buttons
     const deleteButtons = document.querySelectorAll('.delete-button');
     deleteButtons.forEach(deleteButton => {
         deleteButton.addEventListener('click', (event) => {
@@ -26,17 +23,15 @@ function updateCartDisplay() {
         });
     });
 }
-// Function to create a cart item HTML element
 function createCartItemElement(item, index) {
     const cartItem = document.createElement('li');
     const product = item.product;
     const quantity = item.quantity;
     cartItem.classList.add('cart-item');
     cartItem.innerHTML = `
-        <img src="${product.image}" alt="${product.title}">
+        <img src="${product.image}" alt="${product.names}">
         <div>
-            <h3>${product.title}</h3>
-            <p>Description: ${product.description}</p>
+            <h3>${product.names}</h3>
             <p>Price: $${product.price}</p>
             <p>Quantity: ${quantity}</p>
         </div>
@@ -44,7 +39,6 @@ function createCartItemElement(item, index) {
     `;
     return cartItem;
 }
-// Function to delete a cart item by index
 function deleteCartItem(index) {
     if (index !== null) {
         const item = cart[parseInt(index, 10)];
@@ -56,12 +50,12 @@ function deleteCartItem(index) {
         }
     }
 }
-// Example usage
 const sampleProduct = {
-    title: 'Sample Product',
-    description: 'A sample product description.',
-    price: 20.99,
+    names: 'Sample Product',
     image: 'sample-image.jpg',
+    price: 20.99,
+    title: 'Sample Product',
+    date_established: '2024-01-31',
 };
 const sampleCartItem = {
     product: sampleProduct,
@@ -69,5 +63,4 @@ const sampleCartItem = {
 };
 cart.push(sampleCartItem);
 cartTotals += sampleProduct.price * sampleCartItem.quantity;
-// Initial update of the cart display
 updateCartDisplay();

@@ -303,12 +303,14 @@ header {
 .imageSpace {
   height: 23vh;
   width: 33vh;
+  padding: 10px;
+  border-radius: 5px;
   background-color: #222f3d;
-  transition: transform 0.3s; /* Add smooth transition effect */
+  transition: transform 0.3s; 
 }
 
 .imageSpace:hover {
-  transform: scale(1.2); /* Increase scale on hover */
+  transform: scale(1.2);
 }
 
 .user-images{
